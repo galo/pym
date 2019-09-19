@@ -4,6 +4,7 @@
 *.dll
 *.so
 *.dylib
+debug
 __debug_bin
 pym
 
