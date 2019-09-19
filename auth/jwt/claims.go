@@ -15,7 +15,7 @@ type AppClaims struct {
 
 // ParseClaims parses JWT claims into AppClaims.
 func (c *AppClaims) ParseClaims(claims jwt.MapClaims) error {
-	id, ok := claims["id"]
+	id, ok := claims["client_id"]
 	if !ok {
 		return errors.New("could not parse claim id")
 	}
@@ -27,11 +27,12 @@ func (c *AppClaims) ParseClaims(claims jwt.MapClaims) error {
 	}
 	c.Sub = sub.(string)
 
-	scp, ok := claims["scp"]
+	scp, ok := claims["scopes"]
 	if !ok {
 		return errors.New("could not parse claims roles")
 	}
 
+	// scopes is an array already
 	var scopes []string
 	if scp != nil {
 		for _, v := range scp.([]interface{}) {

@@ -18,7 +18,6 @@ type TokenAuth struct {
 	JwtRefreshExpiry time.Duration
 }
 
-//TODO: Use RSA instead of tokens with HS256
 // NewTokenAuth configures and returns a JWT authentication instance.
 func NewTokenAuth() (*TokenAuth, error) {
 	jwkURL := viper.GetString("auth_jwk_url")
