@@ -7,7 +7,7 @@ import (
 	"github.com/go-chi/jwtauth"
 	"github.com/go-chi/render"
 
-	"github.azc.ext.hp.com/galo/pym/logging"
+	"github.com/galo/pym/logging"
 )
 
 type ctxKey int

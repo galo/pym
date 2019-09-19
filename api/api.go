@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.azc.ext.hp.com/galo/pym/api/app"
-	"github.azc.ext.hp.com/galo/pym/logging"
+	"github.com/galo/pym/api/app"
+	"github.com/galo/pym/logging"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"

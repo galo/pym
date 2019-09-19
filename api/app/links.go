@@ -9,9 +9,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.azc.ext.hp.com/galo/pym/auth/jwt"
-	"github.azc.ext.hp.com/galo/pym/logging"
-	"github.azc.ext.hp.com/galo/pym/models"
+	"github.com/galo/pym/auth/jwt"
+	"github.com/galo/pym/logging"
+	"github.com/galo/pym/models"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/render"
 	"github.com/google/uuid"

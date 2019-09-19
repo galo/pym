@@ -3,7 +3,7 @@ package cmd
 import (
 	"log"
 
-	"github.azc.ext.hp.com/galo/pym/api"
+	"github.com/galo/pym/api"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 
-	"github.azc.ext.hp.com/galo/pym/api"
+	"github.com/galo/pym/api"
 	"github.com/go-chi/docgen"
 	"github.com/spf13/cobra"
 )
