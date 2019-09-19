@@ -12,12 +12,12 @@ go build
 
 Launch the pym app, it will by defaul listen to port 3000.
 
-```
+```bash
 ./pym serve
 ```
 
 You can validate the server is listening
 
-```
+```bash
 curl --noproxy "*" http://127.0.0.1:3000/ping
 ```
