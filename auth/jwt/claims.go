@@ -8,18 +8,19 @@ import (
 
 // AppClaims represent the claims parsed from JWT access token.
 type AppClaims struct {
-	ID     int
-	Sub    string
-	Scopes []string
+	ClientID string
+	Sub      string
+	Scopes   []string
 }
 
 // ParseClaims parses JWT claims into AppClaims.
 func (c *AppClaims) ParseClaims(claims jwt.MapClaims) error {
-	id, ok := claims["client_id"]
+	clientID, ok := claims["client_id"]
 	if !ok {
 		return errors.New("could not parse claim id")
 	}
-	c.ID = int(id.(float64))
+
+	c.ClientID = clientID.(string)
 
 	sub, ok := claims["sub"]
 	if !ok {

@@ -2,7 +2,6 @@ package app
 
 import (
 	"context"
-	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -17,11 +16,11 @@ import (
 	"github.com/google/uuid"
 )
 
-// LinksResource implements profile management handler.
+// LinksResource implements links controller handler.
 type LinksResource struct {
 }
 
-// NewLinksResource creates and returns a profile resource.
+// NewLinksResource creates and returns a links resource.
 func NewLinksResource() *LinksResource {
 	return &LinksResource{}
 }
@@ -62,8 +61,7 @@ func (rs *LinksResource) addDoc(w http.ResponseWriter, r *http.Request) {
 	defer file.Close()
 
 	name := strings.Split(header.Filename, ".")
-	fmt.Printf("File name %s\n", name[0])
-	logging.GetLogEntry(r).Debug("File name: %s\n", name[0])
+	logging.GetLogEntry(r).Debug("File name:", name[0])
 
 	// Get file hhandler
 	id, err := uuid.NewRandom()
@@ -100,7 +98,7 @@ func (rs *LinksResource) addDoc(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//TODO: add the document to SDM
+	claims := jwt.ClaimsFromCtx(r.Context())
 
 	// Return the document
 	d := models.Document{Name: "mydoc",
@@ -108,7 +106,7 @@ func (rs *LinksResource) addDoc(w http.ResponseWriter, r *http.Request) {
 		FolderId:   "123",
 		CreatedAt:  122333444,
 		ModifiedAt: 1233333,
-		Owner:      "galo",
+		Owner:      claims.Sub,
 		ModifiedBy: "galo",
 		UploadedBy: "galo"}
 
