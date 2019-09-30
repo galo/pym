@@ -2,6 +2,7 @@ package app
 
 import (
 	"context"
+	"github.com/galo/pym/api"
 	"io"
 	"net/http"
 	"os"
@@ -35,7 +36,7 @@ func (rs *LinksResource) router() *chi.Mux {
 	r.Use(auth.Verifier())
 
 	r.Use(jwt.Authenticator)
-	r.Use(rs.LinkCtx)
+	//r.Use(rs.LinkCtx)
 	r.Put("/", rs.createLink)
 
 	r.Route("/{linkID}", func(r chi.Router) {
@@ -104,11 +105,11 @@ func (rs *LinksResource) addDoc(w http.ResponseWriter, r *http.Request) {
 	d := models.Document{Name: "mydoc",
 		DocumentId: "123",
 		FolderId:   "123",
-		CreatedAt:  122333444,
-		ModifiedAt: 1233333,
+		CreatedAt:  api.MakeTimestamp(),
+		ModifiedAt: api.MakeTimestamp(),
 		Owner:      claims.Sub,
-		ModifiedBy: "galo",
-		UploadedBy: "galo"}
+		ModifiedBy: claims.Sub,
+		UploadedBy: claims.Sub}
 
 	res := newDocumentResponse(d)
 
@@ -153,14 +154,13 @@ func newLinksResponse(l models.Links) *LinksResponse {
 	return resp
 }
 
-func (rs *LinksResource) LinkCtx(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		claims := jwt.ClaimsFromCtx(r.Context())
-
-		ctx := context.WithValue(r.Context(), ctxProfile, claims)
-		next.ServeHTTP(w, r.WithContext(ctx))
-	})
-}
+//func (rs *LinksResource) LinkCtx(next http.Handler) http.Handler {
+//	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+//		claims := jwt.ClaimsFromCtx(r.Context())
+//		ctx := context.WithValue(r.Context(), ctxProfile, claims)
+//		next.ServeHTTP(w, r.WithContext(ctx))
+//	})
+//}
 
 // LinkCtx middleware is used to load an LinkID  from
 // the URL parameters passed through as the request. In case

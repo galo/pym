@@ -61,3 +61,7 @@ func corsConfig() *cors.Cors {
 		MaxAge:           86400, // Maximum value not ignored by any of major browsers
 	})
 }
+
+func MakeTimestamp() int64 {
+	return time.Now().UnixNano() / int64(time.Millisecond)
+}
