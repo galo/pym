@@ -10,7 +10,7 @@ go build
 
 ## Running
 
-Launch the pym app, it will by defaul listen to port 3000.
+Launch the pym app, it will by default listen to port 3000.
 
 ```bash
 ./pym serve

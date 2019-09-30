@@ -56,7 +56,7 @@ func (rs *LinksResource) addDoc(w http.ResponseWriter, r *http.Request) {
 	file, header, err := r.FormFile("file")
 	if err != nil {
 		logging.GetLogEntry(r).Error(err)
-		render.Render(w, r, ErrBadRequest)
+		_ = render.Render(w, r, ErrBadRequest)
 		return
 	}
 	defer file.Close()
@@ -68,7 +68,7 @@ func (rs *LinksResource) addDoc(w http.ResponseWriter, r *http.Request) {
 	id, err := uuid.NewRandom()
 	if err != nil {
 		logging.GetLogEntry(r).Error("Error generating UUID", err)
-		render.Render(w, r, ErrInternalServerError)
+		_ = render.Render(w, r, ErrInternalServerError)
 		return
 	}
 
@@ -78,8 +78,8 @@ func (rs *LinksResource) addDoc(w http.ResponseWriter, r *http.Request) {
 
 	newFile, err := os.Create(newPath)
 	if err != nil {
-		logging.GetLogEntry(r).Error("Error cerating tmp file", err)
-		render.Render(w, r, ErrInternalServerError)
+		logging.GetLogEntry(r).Error("Error creating tmp file", err)
+		_ = render.Render(w, r, ErrInternalServerError)
 		return
 	}
 	defer newFile.Close()
@@ -88,14 +88,14 @@ func (rs *LinksResource) addDoc(w http.ResponseWriter, r *http.Request) {
 	fileBytes, err := io.Copy(newFile, file)
 	if err != nil {
 		logging.GetLogEntry(r).Error("Error copying file", err)
-		render.Render(w, r, ErrInternalServerError)
+		_ = render.Render(w, r, ErrInternalServerError)
 		return
 	}
 
 	// Empty file uploaded
 	if fileBytes == 0 {
-		logging.GetLogEntry(r).Warn("Emprty file uploaded!")
-		render.Render(w, r, ErrBadRequest)
+		logging.GetLogEntry(r).Warn("Empty file uploaded!")
+		_ = render.Render(w, r, ErrBadRequest)
 		return
 	}
 
@@ -169,7 +169,7 @@ func LinkIDCtx(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		linkID := chi.URLParam(r, "linkID")
 		if linkID == "" {
-			render.Render(w, r, ErrNotFound)
+			_ = render.Render(w, r, ErrNotFound)
 			return
 		}
 		ctx := context.WithValue(r.Context(), "linkID", linkID)
